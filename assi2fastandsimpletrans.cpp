@@ -1,14 +1,14 @@
 /*
 Programmer: ANOM DEVGUN
 Implemented finding of sparse mat
-And Transposing Using simple transpose and fast transpose
+and transpose using both fast and simple methods
 */
 #include<iostream>
 using namespace std;
 class mat
 {
 private :
-    int a[20][20],b[20][20],t,i,j,r,c,l,m,cma;
+    int a[20][20],b[20][3],rma[20][3],t,i,j,r,c,l,m,cma,noterms,noc,nxt,cg,Term;
 public:
     void input(int,int);
     void spacal();
@@ -67,24 +67,33 @@ cout<<b[i][j]<<" ";
 }
 void mat::simtra()
 {
-    t=b[0][0];
-    b[0][0]=b[0][1];
-    b[0][1]=t;
-    t=0;
-    int i=1,cg=cma;                            
-    while(cma>0)
+rma[0][0]=b[0][1];
+rma[0][1]=b[0][0];
+rma[0][2]=b[0][2];
+noterms=b[0][2];
+noc=b[0][1];
+if(b[0][2] > 1)
+{
+    nxt=1;
+    for(c=0;c<noc;c++)
     {
-        t=b[i][0];
-        b[i][0]=b[i][1];
-        b[i][1]=t;
-        i++;
-        cma--;
+        for(Term=1;Term<=noterms;Term++)
+        {
+            if(b[Term][1]== c)
+		{
+			rma[nxt][0]=b[Term][1];
+			rma[nxt][1]=b[Term][0];
+			rma[nxt][2]=b[Term][2];
+			nxt++;
+		}
+        }
     }
-    for(i=0;i<cg;i++)
+}
+for(i=0;i<=rma[0][2];i++)
 {
 cout<<"\n";
 for(j=0;j<3;j++)
-cout<<b[i][j]<<" ";
+cout<<rma[i][j]<<" ";
 }
 }
 void mat::fatra()

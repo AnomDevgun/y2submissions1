@@ -1,24 +1,21 @@
 /*
 Programmer: ANOM DEVGUN
 Implemented finding of sparse mat
-and transpose using both fast and simple methods
 */
 #include<iostream>
 using namespace std;
 class mat
 {
 private :
-    int a[20][20],b[20][3],rma[20][3],t,i,j,r,c,l,m,cma,noterms,noc,nxt,cg,Term;
+    int a[20][20],b[20][20],rma[20][3],ft[20][20],i,j,d,cma,noterms,nxt,Term,noc,ctr=1,cou=0;
 public:
     void input(int,int);
-    void spacal();
+    void spacal(int,int);
     void simtra();
     void fatra();
 };
-void mat::input(int r,int c)
+void mat::input(int l,int m)           //TO INPUT
 {
-    l=r;
-    m=c;
     cout<<"Enter Elements Of Matrix\n";
     for (i=0;i<l;i++)
     {
@@ -35,10 +32,8 @@ void mat::input(int r,int c)
         cout<<"\n";
     }
 }
-void mat::spacal()
+void mat::spacal(int l, int m)                  //FIND SPARSE
 {
-    int ctr=1;
-
     for(i=0;i<l;i++)
     {
         for(j=0;j<m;j++)
@@ -65,7 +60,8 @@ for(j=0;j<3;j++)
 cout<<b[i][j]<<" ";
 }
 }
-void mat::simtra()
+
+void mat::simtra()                  //SIMPLE TRANSPOSE
 {
 rma[0][0]=b[0][1];
 rma[0][1]=b[0][0];
@@ -75,11 +71,11 @@ noc=b[0][1];
 if(b[0][2] > 1)
 {
     nxt=1;
-    for(c=0;c<noc;c++)
+    for(d=0;d<noc;d++)
     {
         for(Term=1;Term<=noterms;Term++)
         {
-            if(b[Term][1]== c)
+            if(b[Term][1]== d)
 		{
 			rma[nxt][0]=b[Term][1];
 			rma[nxt][1]=b[Term][0];
@@ -96,10 +92,9 @@ for(j=0;j<3;j++)
 cout<<rma[i][j]<<" ";
 }
 }
-void mat::fatra()
+void mat :: fatra()             //FAST TRANSPOSE
 {
-int c[20][20];
-int i,j,o,p,cnt[10],pos[10];
+int o,p,cnt[10],pos[10];
 for(i=0;i<=b[0][2];i++)
 {
     o=b[i][1];
@@ -115,18 +110,18 @@ for(i=1;i<=b[0][2];i++)
     o=b[i][1];
     p=pos[o];
     pos[o]++;
-    c[p][0]=b[i][1];
-    c[p][1]=b[i][0];
-    c[p][2]=b[i][2];
+    ft[p][0]=b[i][1];
+    ft[p][1]=b[i][0];
+    ft[p][2]=b[i][2];
 }
-c[0][0]=b[0][0];
-c[0][1]=b[0][1];
-c[0][2]=b[0][2];
-for(i=0;i<=c[0][2];i++)
+ft[0][0]=b[0][0];
+ft[0][1]=b[0][1];
+ft[0][2]=b[0][2];
+for(i=0;i<=ft[0][2];i++)
 {
 cout<<"\n";
 for(j=0;j<3;j++)
-cout<<c[i][j]<<" ";
+cout<<ft[i][j]<<" ";
 }
 }
 int main()
@@ -137,7 +132,7 @@ int main()
     cout<<"Enter The Rows and Columns of Matrix \n";
     cin>>k>>n;
     obj.input(k,n);
-    obj.spacal();
+    obj.spacal(k,n);
     cout<<"\n1)For Simple transpose\n";
     cout<<"2)For Fast Transpose\n";
     cin>>ch;

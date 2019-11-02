@@ -1,2 +1,2 @@
 # y2submissions1
-year 2 sem 1 submissions
+year 2 sem 1 submissions DATA STRUCT AND ALGO
